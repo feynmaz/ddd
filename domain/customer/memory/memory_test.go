@@ -16,7 +16,7 @@ func TestMemory_GetCustomer(t *testing.T) {
 		expectedErr error
 	}
 
-	cust, err := customer.NewCustomer("Jon")
+	cust, err := customer.New("Jon")
 	if err != nil {
 		t.Fatal(err)
 	}

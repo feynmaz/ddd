@@ -1,4 +1,4 @@
-// Package memory is in-memory implementation of CustomerRepository
+// Package memory is in-memory implementation of Repository
 package memory
 
 import (

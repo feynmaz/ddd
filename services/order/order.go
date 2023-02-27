@@ -15,8 +15,8 @@ import (
 type OrderConfiguration func(os *OrderService) error
 
 type OrderService struct {
-	customers customer.CustomerRepository
-	products  product.ProductRepository
+	customers customer.Repository
+	products  product.Repository
 }
 
 func NewOrderService(cfgs ...OrderConfiguration) (*OrderService, error) {
@@ -33,7 +33,7 @@ func NewOrderService(cfgs ...OrderConfiguration) (*OrderService, error) {
 }
 
 // WithCustomerRepository rapplies a customer repository to the OrderService
-func WithCustomerRepository(cr customer.CustomerRepository) OrderConfiguration {
+func WithCustomerRepository(cr customer.Repository) OrderConfiguration {
 	// Return a function that matches the orderConfiguration alias
 	return func(os *OrderService) error {
 		os.customers = cr
@@ -96,7 +96,7 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productsIDs []uuid.UUID
 }
 
 func (o *OrderService) AddCustomer(name string) (uuid.UUID, error) {
-	c, err := customer.NewCustomer(name)
+	c, err := customer.New(name)
 	if err != nil {
 		return uuid.Nil, err
 	}

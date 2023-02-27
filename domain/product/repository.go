@@ -11,7 +11,7 @@ var (
 	ErrFailedToAddProduct = errors.New("failed to add product")
 )
 
-type ProductRepository interface {
+type Repository interface {
 	GetAll() ([]Product, error)
 	GetByID(id uuid.UUID) (Product, error)
 	Add(p Product) error

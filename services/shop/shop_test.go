@@ -9,19 +9,19 @@ import (
 )
 
 func init_products(t *testing.T) []product.Product {
-	apple, err := product.NewProduct(
+	apple, err := product.New(
 		"Apple", "Granny Smith", 0.99,
 	)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	orange, err := product.NewProduct("Orange", "Clementine, Seven Seas", 1.99)
+	orange, err := product.New("Orange", "Clementine, Seven Seas", 1.99)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	banana, err := product.NewProduct("Banana", "Lady Finger", 0.49)
+	banana, err := product.New("Banana", "Lady Finger", 0.49)
 	if err != nil {
 		t.Fatal(err)
 	}

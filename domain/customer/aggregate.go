@@ -19,8 +19,8 @@ type Customer struct {
 	transactions []shop.Transaction
 }
 
-// NewCustomer is a factory to create a new cutomer aggregates
-func NewCustomer(name string) (Customer, error) {
+// New is a factory to create a new cutomer aggregates
+func New(name string) (Customer, error) {
 	if name == "" {
 		return Customer{}, ErrInvalidPerson
 	}
