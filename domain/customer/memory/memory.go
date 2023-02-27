@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/feynmaz/ddd/domain/customer"
+	"github.com/feynmaz/shop/domain/customer"
 
 	"github.com/google/uuid"
 )

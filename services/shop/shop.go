@@ -3,13 +3,14 @@ package services
 import (
 	"log"
 
+	"github.com/feynmaz/shop/services/order"
 	"github.com/google/uuid"
 )
 
 type ShopConfiguration func(s *Shop) error
 
 type Shop struct {
-	OrderService   *OrderService
+	OrderService   *order.OrderService
 	BillingService interface{}
 }
 
@@ -25,7 +26,7 @@ func NewShop(cfgs ...ShopConfiguration) (*Shop, error) {
 	return s, nil
 }
 
-func WithOrderService(os *OrderService) ShopConfiguration {
+func WithOrderService(os *order.OrderService) ShopConfiguration {
 	return func(s *Shop) error {
 		s.OrderService = os
 		return nil

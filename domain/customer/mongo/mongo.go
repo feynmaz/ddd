@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/feynmaz/ddd/domain/customer"
+	"github.com/feynmaz/shop/domain/customer"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"

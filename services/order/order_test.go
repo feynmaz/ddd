@@ -1,30 +1,32 @@
-package services
+package order
 
 import (
 	"testing"
 
+	"github.com/feynmaz/shop/domain/customer"
+	"github.com/feynmaz/shop/domain/product"
 	"github.com/google/uuid"
 )
 
-func init_products(t *testing.T) []aggregate.Product {
-	apple, err := aggregate.NewProduct(
+func init_products(t *testing.T) []product.Product {
+	apple, err := product.NewProduct(
 		"Apple", "Granny Smith", 0.99,
 	)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	orange, err := aggregate.NewProduct("Orange", "Clementine, Seven Seas", 1.99)
+	orange, err := product.NewProduct("Orange", "Clementine, Seven Seas", 1.99)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	banana, err := aggregate.NewProduct("Banana", "Lady Finger", 0.49)
+	banana, err := product.NewProduct("Banana", "Lady Finger", 0.49)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	return []aggregate.Product{apple, orange, banana}
+	return []product.Product{apple, orange, banana}
 }
 
 func TestOrder_NewOrderService(t *testing.T) {
@@ -38,7 +40,7 @@ func TestOrder_NewOrderService(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	cust, err := aggregate.NewCustomer("Percy")
+	cust, err := customer.NewCustomer("Percy")
 	if err != nil {
 		t.Fatal(err)
 	}

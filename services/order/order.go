@@ -1,14 +1,14 @@
-package services
+package order
 
 import (
 	"context"
 	"log"
 
-	"github.com/feynmaz/ddd/domain/customer"
-	"github.com/feynmaz/ddd/domain/customer/mongo"
-	"github.com/feynmaz/ddd/domain/product"
-	"github.com/feynmaz/ddd/domain/product/memory"
-	prodmem "github.com/feynmaz/ddd/domain/product/memory"
+	"github.com/feynmaz/shop/domain/customer"
+	custmem "github.com/feynmaz/shop/domain/customer/memory"
+	"github.com/feynmaz/shop/domain/customer/mongo"
+	"github.com/feynmaz/shop/domain/product"
+	prodmem "github.com/feynmaz/shop/domain/product/memory"
 	"github.com/google/uuid"
 )
 
@@ -33,16 +33,16 @@ func NewOrderService(cfgs ...OrderConfiguration) (*OrderService, error) {
 }
 
 // WithCustomerRepository rapplies a customer repository to the OrderService
-func WithCustomerRepository(ct customer.CustomerRepository) OrderConfiguration {
+func WithCustomerRepository(cr customer.CustomerRepository) OrderConfiguration {
 	// Return a function that matches the orderConfiguration alias
 	return func(os *OrderService) error {
-		os.customers = ct
+		os.customers = cr
 		return nil
 	}
 }
 
 func WithMemoryCustomerRepository() OrderConfiguration {
-	cr := memory.New()
+	cr := custmem.New()
 	return WithCustomerRepository(cr)
 }
 
@@ -57,7 +57,7 @@ func WithMongoCustomerRepository(ctx context.Context, connStr string) OrderConfi
 	}
 }
 
-func WithMemoryProductRepository(products []aggregate.Product) OrderConfiguration {
+func WithMemoryProductRepository(products []product.Product) OrderConfiguration {
 	return func(os *OrderService) error {
 		pr := prodmem.New()
 
@@ -78,7 +78,7 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productsIDs []uuid.UUID
 		return 0, err
 	}
 
-	products := make([]aggregate.Product, 0, len(productsIDs))
+	products := make([]product.Product, 0, len(productsIDs))
 	var total float64
 
 	for _, id := range productsIDs {
@@ -93,4 +93,17 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productsIDs []uuid.UUID
 	}
 	log.Printf("customer %s has ordered %d products with total %.2f\n", c.GetID(), len(products), total)
 	return total, nil
+}
+
+func (o *OrderService) AddCustomer(name string) (uuid.UUID, error) {
+	c, err := customer.NewCustomer(name)
+	if err != nil {
+		return uuid.Nil, err
+	}
+
+	if err := o.customers.Add(c); err != nil {
+		return uuid.Nil, err
+	}
+
+	return c.GetID(), nil
 }
