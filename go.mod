@@ -1,4 +1,4 @@
-module github.com/feynmaz/ddd
+module github.com/feynmaz/shop
 
 go 1.18
 

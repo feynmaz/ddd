@@ -4,11 +4,10 @@ import (
 	"context"
 	"log"
 
-	"github.com/feynmaz/ddd/aggregate"
 	"github.com/feynmaz/ddd/domain/customer"
-	"github.com/feynmaz/ddd/domain/customer/memory"
 	"github.com/feynmaz/ddd/domain/customer/mongo"
 	"github.com/feynmaz/ddd/domain/product"
+	"github.com/feynmaz/ddd/domain/product/memory"
 	prodmem "github.com/feynmaz/ddd/domain/product/memory"
 	"github.com/google/uuid"
 )

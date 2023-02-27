@@ -3,7 +3,6 @@ package customer
 import (
 	"errors"
 
-	"github.com/feynmaz/ddd/aggregate"
 	"github.com/google/uuid"
 )
 
@@ -14,8 +13,7 @@ var (
 )
 
 type CustomerRepository interface {
-	Get(id uuid.UUID) (aggregate.Customer, error)
-	Add(customer aggregate.Customer) error
-	Update(aggregate.Customer) error
+	Get(id uuid.UUID) (Customer, error)
+	Add(customer Customer) error
+	Update(Customer) error
 }
-

@@ -3,7 +3,7 @@ package services
 import (
 	"testing"
 
-	"github.com/feynmaz/ddd/aggregate"
+	"github.com/feynmaz/ddd/domain/customer"
 	"github.com/google/uuid"
 )
 
@@ -23,7 +23,7 @@ func Test_Shop(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	customer, err := aggregate.NewCustomer("percy")
+	customer, err := customer.NewCustomer("percy")
 	if err != nil {
 		t.Fatal(err)
 	}

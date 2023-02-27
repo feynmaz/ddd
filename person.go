@@ -1,4 +1,4 @@
-package entity
+package shop
 
 import "github.com/google/uuid"
 
