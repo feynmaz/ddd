@@ -1,4 +1,4 @@
-package services
+package shop
 
 import (
 	"log"
@@ -39,6 +39,6 @@ func (s *Shop) Order(customer uuid.UUID, products []uuid.UUID) (float64, error) 
 		return 0, err
 	}
 
-	log.Printf("Bill the customer: %0.0f", total)
+	log.Printf("Bill the customer: %.2f", total)
 	return total, nil
 }
