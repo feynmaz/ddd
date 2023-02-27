@@ -1,11 +1,13 @@
 package services
 
 import (
+	"context"
 	"log"
 
 	"github.com/feynmaz/ddd/aggregate"
 	"github.com/feynmaz/ddd/domain/customer"
 	"github.com/feynmaz/ddd/domain/customer/memory"
+	"github.com/feynmaz/ddd/domain/customer/mongo"
 	"github.com/feynmaz/ddd/domain/product"
 	prodmem "github.com/feynmaz/ddd/domain/product/memory"
 	"github.com/google/uuid"
@@ -43,6 +45,17 @@ func WithCustomerRepository(ct customer.CustomerRepository) OrderConfiguration {
 func WithMemoryCustomerRepository() OrderConfiguration {
 	cr := memory.New()
 	return WithCustomerRepository(cr)
+}
+
+func WithMongoCustomerRepository(ctx context.Context, connStr string) OrderConfiguration {
+	return func(os *OrderService) error {
+		cr, err := mongo.New(ctx, connStr)
+		if err != nil {
+			return err
+		}
+		os.customers = cr
+		return nil
+	}
 }
 
 func WithMemoryProductRepository(products []aggregate.Product) OrderConfiguration {
